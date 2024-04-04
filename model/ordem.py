@@ -1,26 +1,20 @@
-from sqlalchemy import Column, String, Integer, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Table
 from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
-from typing import Union
 
-from  model import Base
+from model.base import Base
+from model.produto import Produto
+
 
 class Ordem(Base):
-    __tablename__ = 'ordempedido'
+    __tablename__ = 'ordem'
+    id = Column(Integer, primary_key=True)
+    create_time = Column(DateTime, default=datetime.now)
+    produtos = relationship("Produto")
     
-    id = Column("pk_ordempedido", Integer, primary_key=True)
-    produto = Column(Integer, ForeignKey("produto.pk_produto"), nullable=False)
-    create_time = Column(DateTime, default=datetime.now())    
 
-    def __init__(self, produto:int, create_time:Union[DateTime, None] = None):
+    def adiciona_produto(self, produto:Produto):
+        """ Adiciona um novo comentário ao Produto
         """
-        Cria um Comentário
-
-        Arguments:
-            texto: o texto de um comentário.
-            data_insercao: data de quando o comentário foi feito ou inserido
-                           à base
-        """
-        self.produto = produto
-        if create_time:
-            self.create_time = create_time
+        self.produtos.append(produto)

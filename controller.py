@@ -12,7 +12,7 @@ from schemas.ordem import *
 from flask_cors import CORS
 
 
-info = Info(title="API Ordem de Serviço", version="1.0.0")
+info = Info(title="API Ordem de Serviço", version="0.2.0")
 app = OpenAPI(__name__, info=info)
 CORS(app)
 
@@ -29,15 +29,17 @@ def home():
     return redirect('/openapi')
 
 
-@app.post('/order', tags=[ordem_tag],
+@app.post('/ordem', tags=[ordem_tag],
            responses={"200": OrdemSchema, "409": ErrorSchema, "400": ErrorSchema})
-def create_order(form: OrdemSchema):
-    """Adiciona um novo Produto à base de dados
-
-    Retorna uma representação dos produtos e comentários associados.
+def create_order():
     """
-    ordem = List[ProdutoSchema]
-    logger.debug("Adicionando ordem")
+    """
+    logger.debug("Criando nova ordem de produção")
+    data = request.json
+    ordem = Ordem()
+    for produto_data in data['produtos']:
+        produto = Produto(nome=produto_data['nome'], quantidade=produto_data['quantidade'])
+        ordem.produtos.append(produto)
     try:
         # criando conexão com a base
         session = Session()
@@ -45,19 +47,18 @@ def create_order(form: OrdemSchema):
         session.add(ordem)
         # efetivando o camando de adição de novo item na tabela
         session.commit()
-        logger.debug(f"Adicionado produto de nome: '{ordem.nome}'")
         return apresenta_ordem(ordem), 200
 
     except IntegrityError as e:
         # como a duplicidade do nome é a provável razão do IntegrityError
-        error_msg = "Produto de mesmo nome já salvo na base :/"
-        logger.warning(f"Erro ao adicionar produto '{ordem.nome}', {error_msg}")
+        error_msg = ""
+        logger.warning(f"Erro ao criar ordem de produção {error_msg}")
         return {"mesage": error_msg}, 409
 
     except Exception as e:
         # caso um erro fora do previsto
-        error_msg = "Não foi possível salvar novo item :/"
-        logger.warning(f"Erro ao adicionar pr*oduto '{ordem.nome}', {error_msg}")
+        error_msg = "Um erro aconteceu..."
+        logger.warning(f"Erro ao criar uma ordem de produção {error_msg}")
         return {"mesage": error_msg}, 400
     
 

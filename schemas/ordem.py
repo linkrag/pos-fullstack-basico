@@ -9,7 +9,7 @@ from schemas.produto import *
 class OrdemSchema(BaseModel):
     """ Define como uma nova ordem a ser inserida deve ser representada
     """
-    produtos:List[ProdutoSchema]
+    produtos: List[ProdutoSchema]    
 
 
 class OrdemViewSchema(BaseModel):
@@ -17,7 +17,7 @@ class OrdemViewSchema(BaseModel):
     """
     id: int = 1
     data_criacao: datetime = "dd/MM/yyyy"
-    produtos:List[ProdutoSchema]
+    produtos: List[ProdutoSchema]
 
 
 class OrdemDelSchema(BaseModel):
