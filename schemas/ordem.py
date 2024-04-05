@@ -12,6 +12,12 @@ class OrdemSchema(BaseModel):
     produtos: List[ProdutoSchema]    
 
 
+class OrdemBuscaSchema(BaseModel):
+    """ Define como uma ordem será retornado: ordem + produtos.
+    """
+    id: int = 0
+
+
 class OrdemViewSchema(BaseModel):
     """ Define como uma ordem será retornado: ordem + produtos.
     """

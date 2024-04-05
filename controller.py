@@ -35,9 +35,8 @@ def create_order():
     """
     """
     logger.debug("Criando nova ordem de produção")
-    data = request.json
     ordem = Ordem()
-    for produto_data in data['produtos']:
+    for produto_data in request.json['produtos']:
         produto = Produto(nome=produto_data['nome'], quantidade=produto_data['quantidade'])
         ordem.produtos.append(produto)
     try:
@@ -48,6 +47,54 @@ def create_order():
         # efetivando o camando de adição de novo item na tabela
         session.commit()
         return apresenta_ordem(ordem), 200
+
+    except IntegrityError as e:
+        # como a duplicidade do nome é a provável razão do IntegrityError
+        error_msg = ""
+        logger.warning(f"Erro ao criar ordem de produção {error_msg}")
+        return {"mesage": error_msg}, 409
+
+    except Exception as e:
+        # caso um erro fora do previsto
+        error_msg = "Um erro aconteceu..."
+        logger.warning(f"Erro ao criar uma ordem de produção {error_msg}")
+        return {"mesage": error_msg}, 400
+    
+    
+@app.get('/ordem', methods=['GET'])
+def get_ordens(query: OrdemBuscaSchema):
+    """
+    Retorna todas as ordens.
+    ---
+    responses:
+        200:
+            description: Lista de ordens.
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            $ref: '#/components/schemas/Ordem'
+    """
+    try:
+        session = Session()
+        result = []
+        produto_id = query.id
+        if produto_id != 0:
+            ordem = session.query(Ordem).filter(Ordem.id == produto_id).first()
+            ordem_data = {'id': ordem.id, 'produtos': []}
+            for produto in ordem.produtos:
+                ordem_data['produtos'].append({'id': produto.id, 'nome': produto.nome, 'quantidade': produto.quantidade})
+            result.append(ordem_data)
+        else:
+            ordens = session.query(Ordem).all()
+            for ordem in ordens:
+                ordem_data = {'id': ordem.id, 'produtos': []}
+                for produto in ordem.produtos:
+                    ordem_data['produtos'].append({'id': produto.id, 'nome': produto.nome, 'quantidade': produto.quantidade})
+                result.append(ordem_data)
+        session.close()
+        return jsonify(result), 200
 
     except IntegrityError as e:
         # como a duplicidade do nome é a provável razão do IntegrityError
