@@ -1,43 +1,21 @@
-[2024-04-05 11:27:46,144] INFO _log() L96   [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+[2024-04-11 20:28:47,424] INFO _log() L96   [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000 - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:27:46,151] INFO _log() L96   [33mPress CTRL+C to quit[0m - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:27:46,154] INFO _log() L96    * Restarting with stat - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:27:48,117] WARNING _log() L96    * Debugger is active! - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:27:48,123] INFO _log() L96    * Debugger PIN: 139-117-657 - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:28:13,835] INFO _log() L96   127.0.0.1 - - [05/Apr/2024 11:28:13] "GET /ordem HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:28:32,440] INFO _log() L96    * Detected change in 'C:\\Users\\Felipe Pinto\\OneDrive\\Documentos\\Faculdade\\PUC-RIO\\pos-fullstack-basico\\schemas\\ordem.py', reloading - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:31:38,786] INFO _log() L96   [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000 - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:31:38,787] INFO _log() L96   [33mPress CTRL+C to quit[0m - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:31:38,791] INFO _log() L96    * Restarting with stat - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:31:40,743] WARNING _log() L96    * Debugger is active! - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:31:40,749] INFO _log() L96    * Debugger PIN: 139-117-657 - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:32:06,910] INFO _log() L96   127.0.0.1 - - [05/Apr/2024 11:32:06] "GET /ordem HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:32:33,309] WARNING get_ordens() L104  Erro ao criar uma ordem de produção Um erro aconteceu... - call_trace=C:\Users\Felipe Pinto\OneDrive\Documentos\Faculdade\PUC-RIO\pos-fullstack-basico\controller.py L104 
-[2024-04-05 11:32:33,311] INFO _log() L96   127.0.0.1 - - [05/Apr/2024 11:32:33] "[31m[1mGET /ordem?id=1 HTTP/1.1[0m" 400 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:33:42,210] INFO _log() L96    * Detected change in 'C:\\Users\\Felipe Pinto\\OneDrive\\Documentos\\Faculdade\\PUC-RIO\\pos-fullstack-basico\\controller.py', reloading - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:33:50,213] INFO _log() L96   [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000 - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:33:50,214] INFO _log() L96   [33mPress CTRL+C to quit[0m - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:33:50,217] INFO _log() L96    * Restarting with stat - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:33:52,193] WARNING _log() L96    * Debugger is active! - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:33:52,198] INFO _log() L96    * Debugger PIN: 139-117-657 - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:33:59,755] WARNING get_ordens() L108  Erro ao criar uma ordem de produção Um erro aconteceu... - call_trace=C:\Users\Felipe Pinto\OneDrive\Documentos\Faculdade\PUC-RIO\pos-fullstack-basico\controller.py L108 
-[2024-04-05 11:33:59,759] INFO _log() L96   127.0.0.1 - - [05/Apr/2024 11:33:59] "[31m[1mGET /ordem?id=1 HTTP/1.1[0m" 400 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:34:47,696] INFO _log() L96   [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000 - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:34:47,697] INFO _log() L96   [33mPress CTRL+C to quit[0m - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:34:47,701] INFO _log() L96    * Restarting with stat - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:34:49,662] WARNING _log() L96    * Debugger is active! - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:34:49,668] INFO _log() L96    * Debugger PIN: 139-117-657 - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:34:49,735] INFO _log() L96   127.0.0.1 - - [05/Apr/2024 11:34:49] "GET /ordem?id=1 HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:36:09,718] INFO _log() L96   127.0.0.1 - - [05/Apr/2024 11:36:09] "GET /ordem?id=1 HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:38:49,695] INFO _log() L96   [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000 - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:38:49,696] INFO _log() L96   [33mPress CTRL+C to quit[0m - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:38:49,699] INFO _log() L96    * Restarting with stat - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:38:51,638] WARNING _log() L96    * Debugger is active! - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:38:51,645] INFO _log() L96    * Debugger PIN: 139-117-657 - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:38:55,814] INFO _log() L96   127.0.0.1 - - [05/Apr/2024 11:38:55] "GET /ordem?id=1 HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:39:04,787] INFO _log() L96   127.0.0.1 - - [05/Apr/2024 11:39:04] "GET /ordem HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
-[2024-04-05 11:39:14,366] INFO _log() L96    * Detected change in 'C:\\Users\\Felipe Pinto\\OneDrive\\Documentos\\Faculdade\\PUC-RIO\\pos-fullstack-basico\\controller.py', reloading - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:28:47,429] INFO _log() L96   [33mPress CTRL+C to quit[0m - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:28:47,431] INFO _log() L96    * Restarting with stat - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:28:49,425] WARNING _log() L96    * Debugger is active! - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:28:49,431] INFO _log() L96    * Debugger PIN: 442-501-179 - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:28:51,726] INFO _log() L96   127.0.0.1 - - [11/Apr/2024 20:28:51] "GET /ordem/0 HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:28:53,815] INFO _log() L96   127.0.0.1 - - [11/Apr/2024 20:28:53] "GET /ordem/1 HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:29:00,292] INFO _log() L96   127.0.0.1 - - [11/Apr/2024 20:29:00] "GET /ordem/1 HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:29:54,492] INFO _log() L96   127.0.0.1 - - [11/Apr/2024 20:29:54] "GET /ordem/0 HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:30:08,329] INFO _log() L96   127.0.0.1 - - [11/Apr/2024 20:30:08] "GET /ordem/0 HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:30:10,559] INFO _log() L96   127.0.0.1 - - [11/Apr/2024 20:30:10] "GET /ordem/0 HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:31:33,914] INFO _log() L96   127.0.0.1 - - [11/Apr/2024 20:31:33] "GET /ordem/0 HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:34:07,216] INFO _log() L96   127.0.0.1 - - [11/Apr/2024 20:34:07] "GET /ordem/0 HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:35:37,334] INFO _log() L96   127.0.0.1 - - [11/Apr/2024 20:35:37] "GET /ordem/0 HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:38:24,484] INFO _log() L96    * Detected change in 'C:\\Users\\Felipe Pinto\\OneDrive\\Documentos\\Faculdade\\PUC-RIO\\pos-fullstack-basico\\schemas\\ordem.py', reloading - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:38:27,138] INFO _log() L96    * Restarting with stat - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:38:29,202] WARNING _log() L96    * Debugger is active! - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:38:29,208] INFO _log() L96    * Debugger PIN: 442-501-179 - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:38:29,695] INFO _log() L96   127.0.0.1 - - [11/Apr/2024 20:38:29] "GET /ordem/0 HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  
+[2024-04-11 20:38:41,595] INFO _log() L96   127.0.0.1 - - [11/Apr/2024 20:38:41] "GET /ordem/0 HTTP/1.1" 200 - - call_trace=c:\Python39\lib\site-packages\werkzeug\_internal.py L96  

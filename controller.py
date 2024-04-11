@@ -30,82 +30,60 @@ def home():
 
 
 @app.post('/ordem', tags=[ordem_tag],
-           responses={"200": OrdemSchema, "409": ErrorSchema, "400": ErrorSchema})
-def create_order():
+           responses={"200": OrdemViewSchema, "409": ErrorSchema, "400": ErrorSchema})
+def create_order(body: OrdemSchema):
+    """Cria uma nova ordem de produção com os produtos enviados
+    
+    Retorna uma representação da ordem de produção com os produtos associados.
     """
-    """
-    logger.debug("Criando nova ordem de produção")
+    logger.debug("Criando nova ordem 6de produção")
     ordem = Ordem()
-    for produto_data in request.json['produtos']:
-        produto = Produto(nome=produto_data['nome'], quantidade=produto_data['quantidade'])
-        ordem.produtos.append(produto)
     try:
-        # criando conexão com a base
-        session = Session()
-        # adicionando produto
-        session.add(ordem)
-        # efetivando o camando de adição de novo item na tabela
-        session.commit()
-        return apresenta_ordem(ordem), 200
+        for produto in body.produtos:
+            produto = Produto(nome=produto.nome, quantidade=produto.quantidade)
+            ordem.produtos.append(produto)
+            session = Session()
+            session.add(ordem)
+            session.commit()
+            return apresenta_ordem(ordem), 200
 
     except IntegrityError as e:
-        # como a duplicidade do nome é a provável razão do IntegrityError
-        error_msg = ""
+        error_msg = e
         logger.warning(f"Erro ao criar ordem de produção {error_msg}")
         return {"mesage": error_msg}, 409
 
     except Exception as e:
-        # caso um erro fora do previsto
-        error_msg = "Um erro aconteceu..."
+        error_msg = e
         logger.warning(f"Erro ao criar uma ordem de produção {error_msg}")
         return {"mesage": error_msg}, 400
     
     
-@app.get('/ordem', methods=['GET'])
-def get_ordens(query: OrdemBuscaSchema):
-    """
-    Retorna todas as ordens.
-    ---
-    responses:
-        200:
-            description: Lista de ordens.
-            content:
-                application/json:
-                    schema:
-                        type: array
-                        items:
-                            $ref: '#/components/schemas/Ordem'
+@app.get('/ordem/<int:id>', tags=[ordem_tag],
+           responses={"200": OrdemListViewSchema, "409": ErrorSchema, "400": ErrorSchema})
+def get_ordens(path: OrdemBuscaSchema):
+    """Faz uma busca pelo ID informado no path ou pelo default 0
+    
+    Retorna todas as ordens de produção cadastradas, se o ID enviado for 0 (default), ou a ordem de produção do ID enviado.
     """
     try:
         session = Session()
-        result = []
-        produto_id = query.id
+        produto_id = path.id
         if produto_id != 0:
-            ordem = session.query(Ordem).filter(Ordem.id == produto_id).first()
-            ordem_data = {'id': ordem.id, 'produtos': []}
-            for produto in ordem.produtos:
-                ordem_data['produtos'].append({'id': produto.id, 'nome': produto.nome, 'quantidade': produto.quantidade})
-            result.append(ordem_data)
+            ordens = session.query(Ordem).filter(Ordem.id == produto_id)
         else:
             ordens = session.query(Ordem).all()
-            for ordem in ordens:
-                ordem_data = {'id': ordem.id, 'produtos': []}
-                for produto in ordem.produtos:
-                    ordem_data['produtos'].append({'id': produto.id, 'nome': produto.nome, 'quantidade': produto.quantidade})
-                result.append(ordem_data)
+        result = apresenta_ordens(ordens)
         session.close()
         return jsonify(result), 200
 
     except IntegrityError as e:
-        # como a duplicidade do nome é a provável razão do IntegrityError
-        error_msg = ""
-        logger.warning(f"Erro ao criar ordem de produção {error_msg}")
+        error_msg = e
+        logger.warning(f"Erro ao consultar a ordem de produção {e}")
         return {"mesage": error_msg}, 409
 
     except Exception as e:
-        # caso um erro fora do previsto
-        error_msg = "Um erro aconteceu..."
-        logger.warning(f"Erro ao criar uma ordem de produção {error_msg}")
+        error_msg = e
+        logger.warning(f"Erro ao consultar a ordem de produção {e}")
         return {"mesage": error_msg}, 400
     
 

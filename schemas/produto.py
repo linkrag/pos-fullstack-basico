@@ -7,8 +7,8 @@ from datetime import datetime
 class ProdutoSchema(BaseModel):
     """ Define como um novo produto a ser inserido deve ser representado
     """
-    product_name: str = "Osso Bovino"
-    quantity: int = 12
+    nome: str = "Osso Bovino"
+    quantidade: int = 12
 
 
 class ListagemProdutosSchema(BaseModel):
@@ -31,7 +31,7 @@ def apresenta_produto(produto: Produto):
     """
     return {
         "id": produto.id,
-        "nome": produto.product_name,
-        "quantidade": produto.quantity,
+        "nome": produto.nome,
+        "quantidade": produto.quantidade,
         "data_criacao": produto.create_time
     }
