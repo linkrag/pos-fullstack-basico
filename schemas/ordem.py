@@ -4,6 +4,7 @@ from model.ordem import Ordem
 from datetime import datetime
 
 from schemas.produto import *
+from schemas.observacao import *
 
 
 class OrdemSchema(BaseModel):
@@ -15,19 +16,20 @@ class OrdemSchema(BaseModel):
 class OrdemBuscaSchema(BaseModel):
     """ Define como uma ordem será retornado: ordem + produtos.
     """
-    id: int = 0
+    ordem_id: int = 0
 
 
 class OrdemViewSchema(BaseModel):
-    """ Define como uma ordem será retornado: ordem + produtos.
+    """ Define como uma ordem será retornado: ordem + produtos + obs.
     """
     id: int = 1
     data_criacao: datetime = "dd/MM/yyyy"
+    observacao: List[ObservacaoViewSchema]
     produtos: List[ProdutoSchema]
 
 
 class OrdemListViewSchema(BaseModel):
-    """ Define como uma ordem será retornado: ordem + produtos.
+    """ Define como buscar uma ordem.
     """
     ordens: List[OrdemViewSchema]
 
@@ -51,7 +53,8 @@ def apresenta_ordem(ordem: Ordem):
     return {
         "id": ordem.id,
         "data_criacao": ordem.create_time.strftime(mascara),
-        "produtos": [{"nome": p.nome,"quantidade": p.quantidade} for p in ordem.produtos]
+        "obs": [{"id": obs.id, "texto": obs.texto,"data": obs.create_time.strftime(mascara)} for obs in ordem.observacao if not obs.deleted],
+        "produtos": [{"nome": p.nome, "quantidade": p.quantidade} for p in ordem.produtos]
     }
 
 
@@ -64,7 +67,9 @@ def apresenta_ordens(ordens: List[Ordem]):
     mascara = "%d/%m/%Y %H:%M:%S"
     
     return {
-        "ordens": [{"id": o.id,
+        "ordens": [{
+                "id": o.id,
                     "data_criacao": o.create_time.strftime(mascara),
+                    "obs": [{"id": obs.id, "texto": obs.texto,"data": obs.create_time.strftime(mascara)} for obs in o.observacao if not obs.deleted],
                     "produtos": [{"nome": p.nome,"quantidade": p.quantidade} for p in o.produtos]} for o in ordens]
     }
