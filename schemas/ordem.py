@@ -14,13 +14,13 @@ class OrdemSchema(BaseModel):
 
 
 class OrdemBuscaSchema(BaseModel):
-    """ Define como uma ordem será retornado: ordem + produtos.
+    """ Define como uma ordem deverá ser buscada.
     """
     ordem_id: int = 0
 
 
 class OrdemViewSchema(BaseModel):
-    """ Define como uma ordem será retornado: ordem + produtos + obs.
+    """ Define como uma ordem deverá ser representada.
     """
     id: int = 1
     data_criacao: datetime = "dd/MM/yyyy"
@@ -29,7 +29,7 @@ class OrdemViewSchema(BaseModel):
 
 
 class OrdemListViewSchema(BaseModel):
-    """ Define como buscar uma ordem.
+    """ Define como uma lista de ordens deverá ser representada.
     """
     ordens: List[OrdemViewSchema]
 

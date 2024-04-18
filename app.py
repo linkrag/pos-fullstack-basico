@@ -13,7 +13,7 @@ from schemas.produto import *
 from flask_cors import CORS
 
 
-info = Info(title="API Ordem de Serviço", version="0.2.0")
+info = Info(title="API Ordem de Produção", version="1.0.0")
 app = OpenAPI(__name__, info=info)
 CORS(app)
 
@@ -31,6 +31,33 @@ def home():
     return redirect('/openapi')
 
 
+@app.get('/ordem/<int:ordem_id>', tags=[ordem_tag],
+           responses={"200": OrdemListViewSchema, "409": ErrorSchema, "400": ErrorSchema})
+def get_ordens(path: OrdemBuscaSchema):
+    """Faz uma busca pelo ID informado no path ou pelo default 0
+    
+    Retorna todas as ordens de produção cadastradas, se o ID enviado for 0 (default), ou a ordem de produção do ID enviado.
+    """
+    try:
+        session = Session()
+        #verifica o ID enviado
+        if path.ordem_id != 0:
+            ordens = session.query(Ordem).filter(Ordem.id == path.ordem_id)
+        else:
+            ordens = session.query(Ordem).filter(Ordem.deleted == False)
+        result = apresenta_ordens(ordens)
+        session.close()
+        return jsonify(result), 200
+
+    except IntegrityError as e:
+        logger.warning(f"Erro ao consultar a ordem de produção {e.args}")
+        return {"mesage": e.args}, 409
+
+    except Exception as e:
+        logger.warning(f"Erro ao consultar a ordem de produção {e.args}")
+        return {"mesage": e.args}, 400
+    
+    
 @app.post('/ordem', tags=[ordem_tag],
            responses={"200": OrdemViewSchema, "409": ErrorSchema, "400": ErrorSchema})
 def create_order(body: OrdemSchema):
@@ -38,7 +65,7 @@ def create_order(body: OrdemSchema):
     
     Retorna uma representação da ordem de produção com os produtos associados.
     """
-    logger.debug("Criando nova ordem 6de produção")
+    logger.debug("Criando nova ordem de produção")
     ordem = Ordem()
     try:
         for produto in body.produtos:
@@ -66,40 +93,14 @@ def create_order(body: OrdemSchema):
         return {"mesage": e.args}, 409
 
     except Exception as e:
-        logger.warning(f"Erro ao criar uma ordem de produção {e.args}")
-        return {"mesage": e.args}, 400
-    
-    
-@app.get('/ordem/<int:ordem_id>', tags=[ordem_tag],
-           responses={"200": OrdemListViewSchema, "409": ErrorSchema, "400": ErrorSchema})
-def get_ordens(path: OrdemBuscaSchema):
-    """Faz uma busca pelo ID informado no path ou pelo default 0
-    
-    Retorna todas as ordens de produção cadastradas, se o ID enviado for 0 (default), ou a ordem de produção do ID enviado.
-    """
-    try:
-        session = Session()
-        if path.ordem_id != 0:
-            ordens = session.query(Ordem).filter(Ordem.id == path.ordem_id)
-        else:
-            ordens = session.query(Ordem).filter(Ordem.deleted == False)
-        result = apresenta_ordens(ordens)
-        session.close()
-        return jsonify(result), 200
-
-    except IntegrityError as e:
-        logger.warning(f"Erro ao consultar a ordem de produção {e.args}")
-        return {"mesage": e.args}, 409
-
-    except Exception as e:
-        logger.warning(f"Erro ao consultar a ordem de produção {e.args}")
+        logger.warning(f"Erro ao criar ordem de produção {e.args}")
         return {"mesage": e.args}, 400
 
 
 @app.delete('/ordem/<int:ordem_id>', tags=[ordem_tag],
             responses={"200": OrdemDelSchema, "404": ErrorSchema})
 def del_ordem(path: OrdemBuscaSchema):
-    """Deleta uma Ordem de produção a partir de um ID informado no path
+    """Deleta uma ordem de produção a partir de um ID informado no path
 
     Retorna uma mensagem de confirmação da remoção.
     """
@@ -112,11 +113,11 @@ def del_ordem(path: OrdemBuscaSchema):
         return {"mesage": "Ordem removida", "id": path.ordem_id}
         
     except IntegrityError as e:
-        logger.warning(f"Erro ao consultar a ordem de produção {e.args}")
+        logger.warning(f"Erro ao excluir a ordem de produção {e.args}")
         return {"mesage": e.args}, 409
 
     except Exception as e:
-        logger.warning(f"Erro ao consultar a ordem de produção {e.args}")
+        logger.warning(f"Erro ao excluir a ordem de produção {e.args}")
         return {"mesage": e.args}, 400
     
 
@@ -129,13 +130,12 @@ def add_observacao(body: ObservacaoSchema):
     """
     try:
         ordem_id  = body.ordem_id
-        logger.debug(f"Adicionando comentários ao produto #{ordem_id}")
         session = Session()
         ordem = session.query(Ordem).filter(Ordem.id == ordem_id).first()
 
         if not ordem:
-            error_msg = "Ordem não encontrado na base"
-            logger.warning(f"Erro ao adicionar observação à ordem de produção '{ordem_id}', {error_msg}")
+            error_msg = "Ordem não encontrada na base"
+            logger.warning(f"Ocorreu um erro: '{ordem_id}', {error_msg}")
             return {"mesage": error_msg}, 404
 
         texto = body.texto
@@ -143,18 +143,14 @@ def add_observacao(body: ObservacaoSchema):
         observacao.texto = texto
         ordem.adiciona_observacao(observacao)
         session.commit()
-
-        logger.debug(f"Adicionado observação à ordem de produção #{ordem_id}")
-
-        # retorna a representação de produto
         return apresenta_ordem(ordem), 200
     
     except IntegrityError as e:
-        logger.warning(f"Erro ao consultar a observação {e.args}")
+        logger.warning(f"Erro ao inserir a observação {e.args}")
         return {"mesage": e.args}, 409
 
     except Exception as e:
-        logger.warning(f"Erro ao consultar a observação {e.args}")
+        logger.warning(f"Erro ao inserir a observação {e.args}")
         return {"mesage": e.args}, 400
 
 
@@ -174,13 +170,13 @@ def del_observacao(path: ObservacaoBuscaSchema):
         return {"mesage": "Observação removida", "id": path.obs_id}
         
     except IntegrityError as e:
-        logger.warning(f"Erro ao consultar a observação {e.args}")
+        logger.warning(f"Erro ao deletar a observação {e.args}")
         return {"mesage": e.args}, 409
 
     except Exception as e:
-        logger.warning(f"Erro ao consultar a observação {e.args}")
+        logger.warning(f"Erro ao deletar a observação {e.args}")
         return {"mesage": e.args}, 400
     
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    
+if __name__ == '__main__':  
+   app.run()

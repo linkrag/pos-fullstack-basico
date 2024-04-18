@@ -3,7 +3,7 @@ from model.observacao import Observacao
 
 
 class ObservacaoSchema(BaseModel):
-    """ Define como uma nova observação a ser inserido deve ser representado
+    """ Define como uma nova observação a ser inserida deve ser representada
     """
     ordem_id: int = 1
     texto: str = "Lorem Ipsum"
