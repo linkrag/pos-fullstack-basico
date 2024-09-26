@@ -36,7 +36,7 @@ Este comando instala as dependências/bibliotecas, descritas no arquivo `require
 Para executar a API  basta executar:
 
 ```
-(env)$ flask run --host 0.0.0.0 --port 5000
+(env)$ flask run --host 0.0.0.0 --port 5003
 ```
 Caso não tenha um ambiente virtual, pode ser executado diretamente utilizando o comando abaixo pelo terminal na pasta raiz: 
 
@@ -44,4 +44,4 @@ Caso não tenha um ambiente virtual, pode ser executado diretamente utilizando o
 $ python app.py
 ```
 
-Abra o [http://localhost:5000/#/](http://localhost:5000/#/) no navegador para verificar o status da API em execução.
+Abra o [http://localhost:5003/#/](http://localhost:5003/#/) no navegador para verificar o status da API em execução.
