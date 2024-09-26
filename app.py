@@ -58,7 +58,7 @@ def get_ordens(path: OrdemBuscaSchema):
         return {"mesage": e.args}, 400
     
     
-@app.post('/ordem', tags=[ordem_tag],
+@app.put('/ordem', tags=[ordem_tag],
            responses={"200": OrdemViewSchema, "409": ErrorSchema, "400": ErrorSchema})
 def create_order(body: OrdemSchema):
     """Cria uma nova ordem de produção com os produtos enviados
@@ -121,7 +121,7 @@ def del_ordem(path: OrdemBuscaSchema):
         return {"mesage": e.args}, 400
     
 
-@app.post('/obs', tags=[observacao_tag],
+@app.put('/obs', tags=[observacao_tag],
           responses={"200": OrdemViewSchema, "404": ErrorSchema})
 def add_observacao(body: ObservacaoSchema):
     """Adiciona de uma nova observação a uma ordem na base identificada pelo id enviado
@@ -179,4 +179,4 @@ def del_observacao(path: ObservacaoBuscaSchema):
     
     
 if __name__ == '__main__':  
-   app.run()
+   app.run(host='0.0.0.0', port=5003)
