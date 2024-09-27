@@ -49,5 +49,5 @@ Abra o [http://localhost:5003/#/](http://localhost:5003/#/) no navegador para ve
 
 ## Como executar (Docker)
 
-Basta realizar o comando docker build -t ordens-app .
-Em seguida: docker run -p 5003:5003 ordens-app
+Basta realizar o comando `docker build -t ordens-app .`
+Em seguida: `docker run -p 5003:5003 ordens-app`
