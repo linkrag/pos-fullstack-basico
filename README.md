@@ -47,7 +47,7 @@ $ python app.py
 Abra o [http://localhost:5003/#/](http://localhost:5003/#/) no navegador para verificar o status da API em execução.
 
 
-### Como executar (Docker)
+## Como executar (Docker)
 
 Basta realizar o comando docker build -t ordens-app .
 Em seguida: docker run -p 5003:5003 ordens-app
